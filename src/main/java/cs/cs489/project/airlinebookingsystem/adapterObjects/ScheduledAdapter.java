@@ -1,4 +1,4 @@
-package cs.cs489.project.airlinebookingsystem.util;
+package cs.cs489.project.airlinebookingsystem.adapterObjects;
 
 
 import cs.cs489.project.airlinebookingsystem.dto.ScheduledFlightDTO;
@@ -16,7 +16,7 @@ import java.util.Spliterators;
 import java.util.stream.StreamSupport;
 
 @UtilityClass
-public class ScheduledFlightUtil {
+public class ScheduledAdapter {
 
     public static ScheduledFlightDTO toScheduledFlightDTO(final ScheduledFlight scheduledFlight) {
         return ScheduledFlightDTO.builder()
@@ -24,11 +24,11 @@ public class ScheduledFlightUtil {
                 .availableSeats(scheduledFlight.getTemporaryAvailableSeats())
                 .schedule(
                         Optional.ofNullable(scheduledFlight.getSchedule())
-                                        .map(schedule -> ScheduleUtil.toScheduleDTO(schedule))
+                                        .map(schedule -> ScheduleAdapter.toScheduleDTO(schedule))
                                 .orElse(null)
                 )
                 .economicPrice(Optional.ofNullable(scheduledFlight.getEconomicPrice()).map(BigDecimal::toString).orElse(null))
-                .flight(Optional.ofNullable(scheduledFlight.getFlight()).map(FlightUtil::toFlightDTO).orElse(null)
+                .flight(Optional.ofNullable(scheduledFlight.getFlight()).map(FlightAdapter::toFlightDTO).orElse(null)
                 )
                 .build();
     }
@@ -36,7 +36,7 @@ public class ScheduledFlightUtil {
     public static Collection<ScheduledFlightDTO> toScheduledFlightDTOs(final Iterable<ScheduledFlight> scheduledFlights) {
         return StreamSupport.stream(
                 Spliterators.spliteratorUnknownSize(scheduledFlights.iterator(), Spliterator.ORDERED), false)
-                .map(ScheduledFlightUtil::toScheduledFlightDTO)
+                .map(ScheduledAdapter::toScheduledFlightDTO)
                 .toList();
     }
 

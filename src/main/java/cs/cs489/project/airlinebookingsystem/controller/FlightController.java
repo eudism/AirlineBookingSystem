@@ -4,7 +4,7 @@ package cs.cs489.project.airlinebookingsystem.controller;
 import cs.cs489.project.airlinebookingsystem.dto.FlightDTO;
 import cs.cs489.project.airlinebookingsystem.dto.FlightsDTO;
 import cs.cs489.project.airlinebookingsystem.service.FlightService;
-import cs.cs489.project.airlinebookingsystem.util.FlightUtil;
+import cs.cs489.project.airlinebookingsystem.adapterObjects.FlightAdapter;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,17 +23,17 @@ public class FlightController {
 
 	@RequestMapping("/allFlight")
 	public ResponseEntity<?> viewAllFlight() {
-		return ResponseEntity.ok(FlightsDTO.builder().flights(FlightUtil.flightDTOs(flightService.viewAllFlight())).build());
+		return ResponseEntity.ok(FlightsDTO.builder().flights(FlightAdapter.flightDTOs(flightService.viewAllFlight())).build());
 	}
 
 	@RequestMapping("/viewFlight/{id}")
 	public ResponseEntity<?> viewFlight(@PathVariable("id") String flightNo) {
-		return ResponseEntity.ok(FlightUtil.toFlightDTO(flightService.viewFlight(flightNo)));
+		return ResponseEntity.ok(FlightAdapter.toFlightDTO(flightService.viewFlight(flightNo)));
 	}
 
 	@PutMapping("/updateFlight")
 	public ResponseEntity<?> modifyFlight(@RequestBody FlightDTO flight) {
-		return ResponseEntity.ok(FlightUtil.toFlightDTO(flightService.modifyFlight(flight)));
+		return ResponseEntity.ok(FlightAdapter.toFlightDTO(flightService.modifyFlight(flight)));
 	}
 
 	@DeleteMapping("/deleteFlight/{id}")

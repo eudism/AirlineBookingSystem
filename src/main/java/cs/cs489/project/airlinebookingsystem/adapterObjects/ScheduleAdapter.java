@@ -1,4 +1,4 @@
-package cs.cs489.project.airlinebookingsystem.util;
+package cs.cs489.project.airlinebookingsystem.adapterObjects;
 
 
 import cs.cs489.project.airlinebookingsystem.dto.ScheduleDTO;
@@ -8,14 +8,14 @@ import lombok.experimental.UtilityClass;
 import org.springframework.lang.NonNull;
 
 @UtilityClass
-public class ScheduleUtil {
+public class ScheduleAdapter {
 
     public static ScheduleDTO toScheduleDTO(@NonNull final Schedule schedule) {
         return ScheduleDTO.builder()
                 .arrDateTime(schedule.getArrDateTime())
                 .deptDateTime(schedule.getDeptDateTime())
-                .dstnAirport(AirportUtil.toAirportDTO(schedule.getDstnAirport()))
-                .srcAirport(AirportUtil.toAirportDTO(schedule.getSrcAirport()))
+                .dstnAirport(AirportAdapter.toAirportDTO(schedule.getDstnAirport()))
+                .srcAirport(AirportAdapter.toAirportDTO(schedule.getSrcAirport()))
                 .build();
     }
 

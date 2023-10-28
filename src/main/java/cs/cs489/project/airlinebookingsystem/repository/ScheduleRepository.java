@@ -1,4 +1,4 @@
-package cs.cs489.project.airlinebookingsystem.dao;
+package cs.cs489.project.airlinebookingsystem.repository;
 
 
 import cs.cs489.project.airlinebookingsystem.model.Airport;
@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 @Repository
-public interface ScheduleDao extends CrudRepository<Schedule, Long> {
+public interface ScheduleRepository extends CrudRepository<Schedule, Long> {
 
     List<Schedule> findByDeptDateTimeAndArrDateTimeAndDstnAirportAndSrcAirport(
             final OffsetDateTime deptDateTime,

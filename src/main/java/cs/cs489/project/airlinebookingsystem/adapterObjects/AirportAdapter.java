@@ -1,4 +1,4 @@
-package cs.cs489.project.airlinebookingsystem.util;
+package cs.cs489.project.airlinebookingsystem.adapterObjects;
 
 
 import cs.cs489.project.airlinebookingsystem.dto.AirportDTO;
@@ -14,7 +14,7 @@ import java.util.stream.StreamSupport;
 
 
 @UtilityClass
-public class AirportUtil {
+public class AirportAdapter {
 
     public static AirportDTO toAirportDTO(@NonNull final Airport airport) {
         return AirportDTO.builder()
@@ -42,7 +42,7 @@ public class AirportUtil {
     public static Collection<AirportDTO> airportDTOs(@NonNull Iterable<Airport> airports) {
         return StreamSupport.stream(
                         Spliterators.spliteratorUnknownSize(airports.iterator(), Spliterator.ORDERED), false)
-                .map(AirportUtil::toAirportDTO)
+                .map(AirportAdapter::toAirportDTO)
                 .toList();
     }
 }

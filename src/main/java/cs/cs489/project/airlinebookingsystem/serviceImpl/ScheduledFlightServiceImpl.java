@@ -1,10 +1,10 @@
 package cs.cs489.project.airlinebookingsystem.serviceImpl;
 
 
-import cs.cs489.project.airlinebookingsystem.dao.AirportDao;
-import cs.cs489.project.airlinebookingsystem.dao.FlightDao;
-import cs.cs489.project.airlinebookingsystem.dao.ScheduleDao;
-import cs.cs489.project.airlinebookingsystem.dao.ScheduledFlightDao;
+import cs.cs489.project.airlinebookingsystem.repository.AirportRepository;
+import cs.cs489.project.airlinebookingsystem.repository.FlightRepository;
+import cs.cs489.project.airlinebookingsystem.repository.ScheduleRepository;
+import cs.cs489.project.airlinebookingsystem.repository.ScheduledFlightDao;
 import cs.cs489.project.airlinebookingsystem.dto.ScheduledFlightDTO;
 import cs.cs489.project.airlinebookingsystem.exception.RecordNotFoundException;
 import cs.cs489.project.airlinebookingsystem.exception.ScheduledFlightAlreadyBookedException;
@@ -12,7 +12,7 @@ import cs.cs489.project.airlinebookingsystem.exception.ScheduledFlightNotFoundEx
 import cs.cs489.project.airlinebookingsystem.model.ScheduledFlight;
 import cs.cs489.project.airlinebookingsystem.service.BookingService;
 import cs.cs489.project.airlinebookingsystem.service.ScheduledFlightService;
-import cs.cs489.project.airlinebookingsystem.util.ScheduledFlightUtil;
+import cs.cs489.project.airlinebookingsystem.adapterObjects.ScheduledAdapter;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -32,13 +32,13 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	ScheduledFlightDao dao;
 
 	@Autowired
-	ScheduleDao scheduleDao;
+	ScheduleRepository scheduleRepository;
 
 	@Autowired
-	FlightDao flightDao;
+	FlightRepository flightRepository;
 
 	@Autowired
-	AirportDao airportDao;
+	AirportRepository airportRepository;
 
 	@Autowired
 	BookingService bookingService;
@@ -58,15 +58,15 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		if (this.bookingService.hasBooking(scheduledFlightDto.getScheduleFlightId())) {
 			throw new ScheduledFlightAlreadyBookedException("Scheduled flight has been booked");
 		}
-		if (!this.scheduleDao.existsById(scheduledFlightDto.getScheduleFlightId())) {
+		if (!this.scheduleRepository.existsById(scheduledFlightDto.getScheduleFlightId())) {
 			throw new ScheduledFlightNotFoundException("No scheduled flight found for modification");
 		}
 		return dao.findById(scheduledFlightDto.getScheduleFlightId())
 				.map(scheduledFlight -> {
-					ScheduledFlightUtil.transferDtoToEntity(scheduledFlightDto, scheduledFlight);
-					scheduledFlight.setFlight(flightDao.findById(scheduledFlightDto.getFlight().getFlightNo()).orElse(null));
-					scheduledFlight.getSchedule().setSrcAirport(airportDao.findById(scheduledFlightDto.getSchedule().getSrcAirport().getCode()).orElse(null));
-					scheduledFlight.getSchedule().setDstnAirport(airportDao.findById(scheduledFlightDto.getSchedule().getDstnAirport().getCode()).orElse(null));
+					ScheduledAdapter.transferDtoToEntity(scheduledFlightDto, scheduledFlight);
+					scheduledFlight.setFlight(flightRepository.findById(scheduledFlightDto.getFlight().getFlightNo()).orElse(null));
+					scheduledFlight.getSchedule().setSrcAirport(airportRepository.findById(scheduledFlightDto.getSchedule().getSrcAirport().getCode()).orElse(null));
+					scheduledFlight.getSchedule().setDstnAirport(airportRepository.findById(scheduledFlightDto.getSchedule().getDstnAirport().getCode()).orElse(null));
 					scheduledFlight.setAvailableSeats(scheduledFlight.getFlight().getSeatCapacity());
 					scheduledFlight.setTemporaryAvailableSeats(scheduledFlight.getAvailableSeats());
 

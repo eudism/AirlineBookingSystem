@@ -1,4 +1,4 @@
-package cs.cs489.project.airlinebookingsystem.util;
+package cs.cs489.project.airlinebookingsystem.adapterObjects;
 
 
 import cs.cs489.project.airlinebookingsystem.dto.FlightDTO;
@@ -9,11 +9,10 @@ import org.springframework.lang.NonNull;
 import java.util.Collection;
 import java.util.Spliterator;
 import java.util.Spliterators;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 @UtilityClass
-public class FlightUtil {
+public class FlightAdapter {
 
     public static Flight toFlight(@NonNull final FlightDTO flightDTO) {
         final Flight flight = new Flight();
@@ -44,7 +43,7 @@ public class FlightUtil {
     public static Collection<FlightDTO> flightDTOs(@NonNull final Iterable<Flight> flights) {
         return StreamSupport.stream(
                 Spliterators.spliteratorUnknownSize(flights.iterator(), Spliterator.ORDERED), false)
-                .map(FlightUtil::toFlightDTO)
+                .map(FlightAdapter::toFlightDTO)
                 .toList();
     }
 

@@ -1,4 +1,4 @@
-package cs.cs489.project.airlinebookingsystem.util;
+package cs.cs489.project.airlinebookingsystem.adapterObjects;
 
 
 import cs.cs489.project.airlinebookingsystem.dto.PassengerDTO;
@@ -11,7 +11,7 @@ import java.util.Spliterators;
 import java.util.stream.StreamSupport;
 
 @UtilityClass
-public class PassengerUtil {
+public class PassengerAdapter {
 
     public static PassengerDTO toDTO(final Passenger passenger) {
         return PassengerDTO.builder()
@@ -24,7 +24,7 @@ public class PassengerUtil {
     public static Collection<PassengerDTO> toDTOs(final Iterable<Passenger> passengers) {
         return StreamSupport.stream(
                 Spliterators.spliteratorUnknownSize(passengers.iterator(), Spliterator.ORDERED), false)
-                .map(PassengerUtil::toDTO)
+                .map(PassengerAdapter::toDTO)
                 .toList();
     }
 
@@ -38,7 +38,7 @@ public class PassengerUtil {
 
     public static Collection<Passenger> toEntities(final Collection<PassengerDTO> passengerDTOS) {
         return passengerDTOS.stream()
-                .map(PassengerUtil::toEntity)
+                .map(PassengerAdapter::toEntity)
                 .toList();
     }
 

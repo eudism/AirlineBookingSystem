@@ -1,4 +1,4 @@
-package cs.cs489.project.airlinebookingsystem.dao;
+package cs.cs489.project.airlinebookingsystem.repository;
 
 
 import cs.cs489.project.airlinebookingsystem.model.Payment;
@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 
-public interface PaymentDao extends JpaRepository<Payment, Long> {
+public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
 }

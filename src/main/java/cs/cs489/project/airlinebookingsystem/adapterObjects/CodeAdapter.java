@@ -1,11 +1,11 @@
-package cs.cs489.project.airlinebookingsystem.util;
+package cs.cs489.project.airlinebookingsystem.adapterObjects;
 
 import lombok.experimental.UtilityClass;
 
 import java.util.Random;
 
 @UtilityClass
-public class CodeUtil {
+public class CodeAdapter {
 
     private static final String SALT_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 

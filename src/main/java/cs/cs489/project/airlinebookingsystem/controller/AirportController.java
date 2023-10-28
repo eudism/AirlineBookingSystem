@@ -4,7 +4,7 @@ package cs.cs489.project.airlinebookingsystem.controller;
 import cs.cs489.project.airlinebookingsystem.dto.AirportDTO;
 import cs.cs489.project.airlinebookingsystem.dto.AirportsDTO;
 import cs.cs489.project.airlinebookingsystem.service.AirportService;
-import cs.cs489.project.airlinebookingsystem.util.AirportUtil;
+import cs.cs489.project.airlinebookingsystem.adapterObjects.AirportAdapter;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ public class AirportController {
 
 	@GetMapping("/{code}")
 	public ResponseEntity<AirportDTO> getAirport(@PathVariable String code) {
-		return ResponseEntity.ok(AirportUtil.toAirportDTO(airportService.viewAirport(code)));
+		return ResponseEntity.ok(AirportAdapter.toAirportDTO(airportService.viewAirport(code)));
 	}
 
 	@GetMapping

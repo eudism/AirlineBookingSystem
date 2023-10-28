@@ -1,7 +1,7 @@
 package cs.cs489.project.airlinebookingsystem.serviceImpl;
 
 
-import cs.cs489.project.airlinebookingsystem.dao.ScheduleDao;
+import cs.cs489.project.airlinebookingsystem.repository.ScheduleRepository;
 import cs.cs489.project.airlinebookingsystem.model.Airport;
 import cs.cs489.project.airlinebookingsystem.model.Schedule;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import java.time.OffsetDateTime;
 @AllArgsConstructor
 public class ScheduleService {
 
-    private final ScheduleDao scheduleDao;
+    private final ScheduleRepository scheduleRepository;
 
     public Schedule fetchByTimeAndLocation(
             final OffsetDateTime deptDateTime,
@@ -25,7 +25,7 @@ public class ScheduleService {
         destAirport.setCode(dstnAirport);
         final Airport arrAirport = new Airport();
         arrAirport.setCode(srcAirport);
-       return scheduleDao.findByDeptDateTimeAndArrDateTimeAndDstnAirportAndSrcAirport(deptDateTime, arrDateTime, destAirport, arrAirport).stream()
+       return scheduleRepository.findByDeptDateTimeAndArrDateTimeAndDstnAirportAndSrcAirport(deptDateTime, arrDateTime, destAirport, arrAirport).stream()
                .findFirst().orElse(null);
     }
 }

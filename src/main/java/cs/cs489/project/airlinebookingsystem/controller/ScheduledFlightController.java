@@ -11,7 +11,7 @@ import cs.cs489.project.airlinebookingsystem.model.ScheduledFlight;
 import cs.cs489.project.airlinebookingsystem.service.AirportService;
 import cs.cs489.project.airlinebookingsystem.service.FlightService;
 import cs.cs489.project.airlinebookingsystem.service.ScheduledFlightService;
-import cs.cs489.project.airlinebookingsystem.util.ScheduledFlightUtil;
+import cs.cs489.project.airlinebookingsystem.adapterObjects.ScheduledAdapter;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -115,7 +115,7 @@ public class ScheduledFlightController {
 			);
 
 			final ScheduledFlightsDTO scheduledFlightDTO = ScheduledFlightsDTO.builder()
-					.scheduledFlights(ScheduledFlightUtil.toScheduledFlightDTOs(searchSFlight))
+					.scheduledFlights(ScheduledAdapter.toScheduledFlightDTOs(searchSFlight))
 					.build();
 			return new ResponseEntity<>(scheduledFlightDTO, HttpStatus.OK);
 		}catch (ScheduledFlightNotFoundException ex) {
@@ -129,7 +129,7 @@ public class ScheduledFlightController {
 	@GetMapping("/viewall")
 	public ResponseEntity<?> viewAllSF() {
 		return ResponseEntity.ok(ScheduledFlightsDTO.builder()
-				.scheduledFlights(ScheduledFlightUtil.toScheduledFlightDTOs(scheduleFlightService.viewAllScheduledFlights()))
+				.scheduledFlights(ScheduledAdapter.toScheduledFlightDTOs(scheduleFlightService.viewAllScheduledFlights()))
 				.build());
 	}
 

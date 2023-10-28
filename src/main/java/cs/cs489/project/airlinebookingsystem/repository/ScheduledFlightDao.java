@@ -1,4 +1,4 @@
-package cs.cs489.project.airlinebookingsystem.dao;
+package cs.cs489.project.airlinebookingsystem.repository;
 
 
 import cs.cs489.project.airlinebookingsystem.model.ScheduledFlight;

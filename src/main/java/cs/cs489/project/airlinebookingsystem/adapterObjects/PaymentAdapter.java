@@ -1,4 +1,4 @@
-package cs.cs489.project.airlinebookingsystem.util;
+package cs.cs489.project.airlinebookingsystem.adapterObjects;
 
 
 import cs.cs489.project.airlinebookingsystem.dto.PaymentDTO;
@@ -11,7 +11,7 @@ import java.util.Spliterators;
 import java.util.stream.StreamSupport;
 
 @UtilityClass
-public class PaymentUtil {
+public class PaymentAdapter {
 
     public static PaymentDTO toDTO(final Payment payment) {
         return PaymentDTO.builder()
@@ -26,13 +26,13 @@ public class PaymentUtil {
     public static Collection<PaymentDTO> toDTOs(final Iterable<Payment> payments) {
         return StreamSupport.stream(
                         Spliterators.spliteratorUnknownSize(payments.iterator(), Spliterator.ORDERED), false)
-                .map(PaymentUtil::toDTO)
+                .map(PaymentAdapter::toDTO)
                 .toList();
     }
 
     public static Payment toEntity(final PaymentDTO paymentDTO) {
         return Payment.builder()
-                .paymentCode(CodeUtil.buildRandomCode())
+                .paymentCode(CodeAdapter.buildRandomCode())
                 .bookingUserFullname(paymentDTO.getBookingUserFullname())
                 .bookingUserEmail(paymentDTO.getBookingUserEmail())
                 .last4DigitPaymentCard(paymentDTO.getLast4DigitPaymentCard())
