@@ -4,7 +4,7 @@ package cs.cs489.project.airlinebookingsystem.serviceImpl;
 import cs.cs489.project.airlinebookingsystem.repository.AirportRepository;
 import cs.cs489.project.airlinebookingsystem.repository.FlightRepository;
 import cs.cs489.project.airlinebookingsystem.repository.ScheduleRepository;
-import cs.cs489.project.airlinebookingsystem.repository.ScheduledFlightDao;
+import cs.cs489.project.airlinebookingsystem.repository.ScheduledFlightRepository;
 import cs.cs489.project.airlinebookingsystem.dto.ScheduledFlightDTO;
 import cs.cs489.project.airlinebookingsystem.exception.RecordNotFoundException;
 import cs.cs489.project.airlinebookingsystem.exception.ScheduledFlightAlreadyBookedException;
@@ -25,11 +25,9 @@ import java.util.Optional;
 @Service
 public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 
-	/*
-	 * Creating DAO object
-	 */
+
 	@Autowired
-	ScheduledFlightDao dao;
+	ScheduledFlightRepository scheduledFlightRepository;
 
 	@Autowired
 	ScheduleRepository scheduleRepository;
@@ -48,7 +46,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	 */
 	@Override
 	public ScheduledFlight addScheduledFlight(ScheduledFlight scheduledFlight) {
-		return dao.save(scheduledFlight);
+		return scheduledFlightRepository.save(scheduledFlight);
 	}
 
 
@@ -61,7 +59,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		if (!this.scheduleRepository.existsById(scheduledFlightDto.getScheduleFlightId())) {
 			throw new ScheduledFlightNotFoundException("No scheduled flight found for modification");
 		}
-		return dao.findById(scheduledFlightDto.getScheduleFlightId())
+		return scheduledFlightRepository.findById(scheduledFlightDto.getScheduleFlightId())
 				.map(scheduledFlight -> {
 					ScheduledAdapter.transferDtoToEntity(scheduledFlightDto, scheduledFlight);
 					scheduledFlight.setFlight(flightRepository.findById(scheduledFlightDto.getFlight().getFlightNo()).orElse(null));
@@ -70,7 +68,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 					scheduledFlight.setAvailableSeats(scheduledFlight.getFlight().getSeatCapacity());
 					scheduledFlight.setTemporaryAvailableSeats(scheduledFlight.getAvailableSeats());
 
-					return dao.save(scheduledFlight);
+					return scheduledFlightRepository.save(scheduledFlight);
 				}).orElse(null);
 
 	}
@@ -82,18 +80,18 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	public String removeScheduledFlight(Long flightId) throws RecordNotFoundException {
 		if (flightId == null)
 			throw new RecordNotFoundException("Flight not found with ID="+ flightId);
-		Optional<ScheduledFlight> scheduleFlight = dao.findById(flightId);
+		Optional<ScheduledFlight> scheduleFlight = scheduledFlightRepository.findById(flightId);
 		if (!scheduleFlight.isPresent())
 			throw new RecordNotFoundException("Flight not found with ID="+ flightId);
 		else {
-			dao.deleteById(flightId);
+			scheduledFlightRepository.deleteById(flightId);
 		}
 		return "Scheduled flight with ID " + flightId + " is not found";
 	}
 
 	@Override
 	public Iterable<ScheduledFlight> viewAllScheduledFlights() {
-		return dao.findAll();
+		return scheduledFlightRepository.findAll();
 	}
 
 
@@ -101,7 +99,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	public Collection<ScheduledFlight> viewScheduledFlights(
 			LocalDate deptDateTime, String srcAirport, String dstnAirport, Short noOfPassengers) throws ScheduledFlightNotFoundException {
 
-		Collection<ScheduledFlight> scheduledFlights = dao.fetchByTimeAndLocation(
+		Collection<ScheduledFlight> scheduledFlights = scheduledFlightRepository.fetchByTimeAndLocation(
 				deptDateTime,
 				dstnAirport,
 				srcAirport,
@@ -116,12 +114,12 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 
 	@Override
 	public void reserveSeats(final Long scheduledFlightId, final Short numberOfSeats) {
-		dao.findById(scheduledFlightId)
+		scheduledFlightRepository.findById(scheduledFlightId)
 				.ifPresent(scheduledFlight -> {
 					final Integer availableSeats = scheduledFlight.getAvailableSeats() - numberOfSeats;
 					if (availableSeats >= 0) {
 						scheduledFlight.setTemporaryAvailableSeats(availableSeats);
-						dao.save(scheduledFlight);
+						scheduledFlightRepository.save(scheduledFlight);
 					}
 				});
 	}

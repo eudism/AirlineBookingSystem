@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Entity
 @Data
 @Builder
-@EqualsAndHashCode
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class ScheduledFlight {

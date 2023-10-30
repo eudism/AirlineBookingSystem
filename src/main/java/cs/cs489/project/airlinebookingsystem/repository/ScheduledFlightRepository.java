@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface ScheduledFlightDao extends CrudRepository<ScheduledFlight,Long>{
+public interface ScheduledFlightRepository extends CrudRepository<ScheduledFlight,Long>{
 
     @Query("SELECT entity FROM ScheduledFlight entity WHERE "
             + "date(entity.schedule.deptDateTime) = date(:deptDateTime) "
