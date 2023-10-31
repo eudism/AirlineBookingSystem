@@ -25,7 +25,7 @@ import java.util.Collection;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/scheduled-flight")
+@RequestMapping("/api/v1/airline/scheduled-flight")
 public class ScheduledFlightController {
 	/*
 	 * Creating Service object

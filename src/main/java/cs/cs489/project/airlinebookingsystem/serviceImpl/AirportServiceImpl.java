@@ -39,7 +39,7 @@ public class AirportServiceImpl implements AirportService {
 			throw new RecordAlreadyPresentException(
 					"Airport with code : " + airportDTO.getCode() + " already present");
 		} else {
-			airportRepository.save(AirportAdapter.toAirport(airportDTO));
+			 airportRepository.save(AirportAdapter.toAirport(airportDTO));
 		}
 	}
 

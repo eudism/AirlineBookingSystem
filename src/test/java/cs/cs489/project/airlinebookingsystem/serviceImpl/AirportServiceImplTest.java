@@ -1,5 +1,6 @@
 package cs.cs489.project.airlinebookingsystem.serviceImpl;
 
+import cs.cs489.project.airlinebookingsystem.adapterObjects.AirportAdapter;
 import cs.cs489.project.airlinebookingsystem.dto.AirportDTO;
 import cs.cs489.project.airlinebookingsystem.exception.RecordAlreadyPresentException;
 import cs.cs489.project.airlinebookingsystem.exception.RecordNotFoundException;
@@ -11,8 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -102,7 +101,7 @@ class AirportServiceImplTest {
         assertTrue(airports.isEmpty());
 
     }
-//
+
 //    @Test
 //    void testAddAirportIntegration() {
 //
@@ -112,17 +111,16 @@ class AirportServiceImplTest {
 //                .name("Airport 1")
 //                .location("chicago")
 //                .build();
-//
 //        airportService.addAirport(airportDTO);
 //
 //        Airport savedAirport = airportRepository.findById(airportCode)
-//                .orElseThrow(() -> new RuntimeException("Airport not found in the database"));
+//             .orElseThrow(() -> new RuntimeException("Airport not found in the database"));
 //
 //        assertNotNull(savedAirport);
 //        assertEquals(airportCode, savedAirport.getCode());
 //        assertEquals("Airport 1", savedAirport.getName());
 //    }
-//
+////
 //    @Test
 ////    @Transactional
 ////    @DirtiesContext
