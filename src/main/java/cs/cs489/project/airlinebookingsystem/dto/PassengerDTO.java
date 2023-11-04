@@ -19,5 +19,5 @@ public class PassengerDTO {
 
     private Short luggage;
 
-    private BookingDTO booking;
+   // private BookingDTO booking;
 }

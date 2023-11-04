@@ -2,6 +2,7 @@ package cs.cs489.project.airlinebookingsystem.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class Booking {
     private int noOfPassengers;
 
     @OneToMany(mappedBy = "booking", cascade = {CascadeType.PERSIST})
+    @NotEmpty
     private Collection<Passenger> passengers;
 
     @ManyToOne

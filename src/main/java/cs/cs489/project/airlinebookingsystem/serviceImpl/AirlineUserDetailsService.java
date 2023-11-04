@@ -1,6 +1,4 @@
 package cs.cs489.project.airlinebookingsystem.serviceImpl;
-
-
 import cs.cs489.project.airlinebookingsystem.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

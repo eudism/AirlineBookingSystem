@@ -27,5 +27,6 @@ public class ScheduledFlight {
     private BigDecimal economicPrice;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+
     private Schedule schedule;
 }

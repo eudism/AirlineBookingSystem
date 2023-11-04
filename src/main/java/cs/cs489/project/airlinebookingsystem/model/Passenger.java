@@ -23,7 +23,7 @@ public class Passenger {
     private String passengerName;
 
     @Temporal(TemporalType.DATE)
-    private Date dateOfBirth;//change date from date to local
+    private Date dateOfBirth;
 
     private Short luggage;
 

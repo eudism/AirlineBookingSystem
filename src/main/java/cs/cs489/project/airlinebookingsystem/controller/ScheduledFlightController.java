@@ -24,7 +24,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api/v1/airline/scheduled-flight")
 public class ScheduledFlightController {
 	/*
@@ -100,6 +99,7 @@ public class ScheduledFlightController {
 	}
 
 	@GetMapping("/search")
+	@ExceptionHandler(RecordNotFoundException.class)
 	public ResponseEntity<?> viewSF(
 			@RequestParam("deptAirport") final String deptAirport,
 			@RequestParam("arrAirport") final String arrAirport,
@@ -107,8 +107,8 @@ public class ScheduledFlightController {
 			@RequestParam("noOfPassengers") final Short onOfPassengers
 	)  {
 		try {
-			Collection<ScheduledFlight> searchSFlight = scheduleFlightService.viewScheduledFlights(
-					LocalDateTime.parse(deptDate, DateTimeFormatter.ISO_DATE_TIME).atOffset(ZoneOffset.UTC).toLocalDate(),
+			Collection<ScheduledFlight> searchSFlight =
+					scheduleFlightService.viewScheduledFlights(LocalDateTime.parse(deptDate, DateTimeFormatter.ISO_DATE_TIME).atOffset(ZoneOffset.UTC).toLocalDate(),
 					arrAirport,
 					deptAirport,
 					onOfPassengers

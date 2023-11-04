@@ -6,7 +6,6 @@ import cs.cs489.project.airlinebookingsystem.dto.AirportDTO;
 import cs.cs489.project.airlinebookingsystem.exception.RecordAlreadyPresentException;
 import cs.cs489.project.airlinebookingsystem.exception.RecordNotFoundException;
 import cs.cs489.project.airlinebookingsystem.model.Airport;
-import cs.cs489.project.airlinebookingsystem.service.AirportService;
 import cs.cs489.project.airlinebookingsystem.adapterObjects.AirportAdapter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class AirportServiceImpl implements AirportService {
+public class AirportService implements cs.cs489.project.airlinebookingsystem.service.AirportService {
 
 	private final AirportRepository airportRepository;
 

@@ -1,6 +1,5 @@
 package cs.cs489.project.airlinebookingsystem.serviceImpl;
 
-import cs.cs489.project.airlinebookingsystem.adapterObjects.AirportAdapter;
 import cs.cs489.project.airlinebookingsystem.dto.AirportDTO;
 import cs.cs489.project.airlinebookingsystem.exception.RecordAlreadyPresentException;
 import cs.cs489.project.airlinebookingsystem.exception.RecordNotFoundException;
@@ -23,12 +22,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-class AirportServiceImplTest {
+class AirportServiceTest {
     @Mock
     private AirportRepository airportRepository;
 
     @InjectMocks
-    private AirportServiceImpl airportService;
+    private AirportService airportService;
 
 //    @BeforeEach
 //    public void setUp() {

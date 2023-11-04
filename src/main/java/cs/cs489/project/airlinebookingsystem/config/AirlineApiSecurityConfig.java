@@ -21,12 +21,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-public class CityLibraryWebApiSecurityConfig {
+public class AirlineApiSecurityConfig {
     private AirlineUserDetailsService airlineUserDetailsService;
     private JWTAuthFilter jwtAuthFilter;
 
-    public CityLibraryWebApiSecurityConfig(AirlineUserDetailsService airlineUserDetailsService,
-                                           JWTAuthFilter jwtAuthFilter) {
+    public AirlineApiSecurityConfig(AirlineUserDetailsService airlineUserDetailsService,
+                                    JWTAuthFilter jwtAuthFilter) {
         this.airlineUserDetailsService = airlineUserDetailsService;
         this.jwtAuthFilter = jwtAuthFilter;
     }
