@@ -14,7 +14,7 @@ Technologies Used
 Spring Boot: Backend framework for building robust and scalable Java applications. 
 Maven: Build an automation tool for managing project dependencies and building the application. 
 Spring Security: Provides authentication and access control features for securing the application.
-Database (MySQL): For storing flight details, user information, and booking records.
+Database (PostgreSQL): For storing flight details, user information, and booking records.
 RESTful API: API endpoints for communication between the frontend and backend.
 Github as a version of  control system
 Azure for hosting my GitHub code
